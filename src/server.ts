@@ -1,11 +1,13 @@
-import { config } from 'config';
+import { environments } from 'config';
 import { registerCommands } from 'discord/commands/docs/register-commands';
 import { DiscordClient } from 'discord/discord-client';
-import { handleCrons } from 'discord/handle-crons';
+import { handleCrons } from 'discord/handlers/handle-crons';
+import { handleEvents } from 'discord/handlers/handle-events';
 
 const bootstrap = async () => {
   await registerCommands();
-  await DiscordClient.login(config.TOKEN);
+  await handleEvents(DiscordClient);
+  await DiscordClient.login(environments.TOKEN);
   await handleCrons();
 };
 bootstrap();

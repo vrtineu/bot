@@ -1,11 +1,8 @@
 import 'dotenv/config';
 
-type Config = {
-  TOKEN: string;
-  CLIENT_ID: string;
-};
+const { TOKEN, CLIENT_ID } = process.env;
 
-export const config: Config = {
-  TOKEN: process.env.TOKEN as string,
-  CLIENT_ID: process.env.CLIENT_ID as string,
+export const environments = {
+  TOKEN,
+  CLIENT_ID,
 };

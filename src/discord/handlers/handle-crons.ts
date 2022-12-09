@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 
-import { morningCron } from './interactions/morning-cron';
+import { goodMorning } from '../interactions/morning';
 
 export async function handleCrons() {
   const times = {
@@ -9,6 +9,6 @@ export async function handleCrons() {
 
   cron.schedule(times.nineAm, () => {
     console.log('Running morning cron job...');
-    morningCron(['988927852403630091']);
+    goodMorning(['988927852403630091']);
   });
 }
