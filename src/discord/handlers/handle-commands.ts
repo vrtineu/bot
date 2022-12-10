@@ -1,21 +1,19 @@
 import { OAuthClient } from 'config/oauth';
 import { CacheType, Interaction } from 'discord.js';
+import { tokenPrice } from 'providers/battle-net/token-price';
 
 export async function handleCommands(interaction: Interaction<CacheType>) {
-  if (!interaction.isChatInputCommand()) return;
+  const client = new OAuthClient();
+  const battleNetToken = await client.getAccessToken();
 
-  if (interaction.commandName === 'ping') {
-    await interaction.reply('Pong!');
-  }
+  if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === 'server') {
     await interaction.reply('Server info.');
   }
 
-  if (interaction.commandName === 'wow') {
-    const client = new OAuthClient();
-    const token = await client.getAccessToken();
-    console.log('🚀 ~ file: handle-commands.ts:42 ~ token', token);
-    await interaction.reply('World of Warcraft info.');
+  if (interaction.commandName === 'token') {
+    const { price } = await tokenPrice(battleNetToken as string);
+    await interaction.reply(`Token: ${price}`);
   }
 }

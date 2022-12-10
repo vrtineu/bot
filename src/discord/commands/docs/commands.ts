@@ -8,7 +8,7 @@ export const commands = [
     description: 'Replies with server info!',
   },
   {
-    name: 'wow',
-    description: 'Replies with wow info!',
+    name: 'token',
+    description: 'Replies with token price',
   },
 ];

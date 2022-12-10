@@ -26,7 +26,9 @@ export class OAuthClient {
   public async getAccessToken() {
     try {
       if (this.token === null || this.token.expired()) {
-        const { token } = await this.client.getToken({});
+        const { token } = await this.client.getToken({
+          scope: 'wow.profile',
+        });
         this.token = this.client.createToken(token);
       }
 
