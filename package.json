@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "typescript config with eslint and prettier",
   "author": "Vinicius Tineu <vininro@gmail.com>",
-  "main": "index.ts",
+  "main": "main.ts",
   "keywords": [],
   "license": "ISC",
   "engines": {
@@ -15,7 +15,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/index.js",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/main.ts"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

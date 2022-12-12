@@ -1,15 +1,24 @@
 import { Client, Message } from 'discord.js';
 
-import { handleCommands } from './handle-commands';
+import { HandleCommands } from './handle-commands';
 
-export async function handleEvents(client: Client<boolean>) {
-  client.on('ready', () => {
-    console.log(`Logged in as ${client?.user?.tag}!`);
-  });
+export class HandleEvents {
+  constructor(
+    private readonly client: Client<boolean>,
+    private readonly handleCommands: HandleCommands
+  ) {}
 
-  client.on('interactionCreate', handleCommands);
+  public async init(): Promise<void> {
+    this.client.on('ready', () => {
+      console.log(`Logged in as ${this.client?.user?.tag}!`);
+    });
 
-  client.on('messageCreate', (message: Message) => {
-    console.info(`Message from ${message.author.tag} in ${message.channel.id}`);
-  });
+    this.client.on('interactionCreate', this.handleCommands.init);
+
+    this.client.on('messageCreate', (message: Message) => {
+      console.info(
+        `Message from ${message.author.tag} in ${message.channel.id}`
+      );
+    });
+  }
 }

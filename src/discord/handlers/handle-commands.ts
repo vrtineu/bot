@@ -1,19 +1,19 @@
-import { OAuthClient } from 'config/oauth';
 import { CacheType, Interaction } from 'discord.js';
 import { tokenPrice } from 'providers/battle-net/token-price';
 
-export async function handleCommands(interaction: Interaction<CacheType>) {
-  const client = new OAuthClient();
-  const battleNetToken = await client.getAccessToken();
+export class HandleCommands {
+  constructor(private readonly battleNetToken: string) {}
 
-  if (!interaction.isChatInputCommand()) return;
+  public async init(interaction: Interaction<CacheType>): Promise<void> {
+    if (!interaction.isChatInputCommand()) return;
 
-  if (interaction.commandName === 'server') {
-    await interaction.reply('Server info.');
-  }
+    if (interaction.commandName === 'server') {
+      await interaction.reply('Server info.');
+    }
 
-  if (interaction.commandName === 'token') {
-    const { price } = await tokenPrice(battleNetToken as string);
-    await interaction.reply(`Token: ${price}`);
+    if (interaction.commandName === 'token') {
+      const { price } = await tokenPrice(this.battleNetToken);
+      await interaction.reply(`Token: ${price}`);
+    }
   }
 }

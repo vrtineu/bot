@@ -23,7 +23,7 @@ export class OAuthClient {
     this.token = null;
   }
 
-  public async getAccessToken() {
+  public async getAccessToken(): Promise<string> {
     try {
       if (this.token === null || this.token.expired()) {
         const { token } = await this.client.getToken({
@@ -34,7 +34,7 @@ export class OAuthClient {
 
       return this.reduceToken(this.token);
     } catch (error) {
-      console.log('Access Token error', error);
+      throw new Error(`Error retrieving access token: ${error}`);
     }
   }
 
