@@ -23,6 +23,6 @@ export async function tokenPrice(token: string) {
 
     return data;
   } catch (error) {
-    console.log('Error', error);
+    throw new Error(`Error fetching token price: ${error}`);
   }
 }

@@ -3,18 +3,20 @@ import { REST, Routes } from 'discord.js';
 
 import { commands } from './commands';
 
-const rest = new REST({ version: '10' }).setToken(environments.TOKEN);
+export class RegisterCommands {
+  constructor(private readonly rest: REST) {}
 
-export async function registerCommands() {
-  try {
-    console.log('Started refreshing application (/) commands.');
+  public async init(): Promise<void> {
+    try {
+      console.log('Started refreshing application (/) commands.');
 
-    await rest.put(Routes.applicationCommands(environments.CLIENT_ID), {
-      body: commands,
-    });
+      await this.rest.put(Routes.applicationCommands(environments.CLIENT_ID), {
+        body: commands,
+      });
 
-    console.log('Successfully reloaded application (/) commands.');
-  } catch (error) {
-    console.error(error);
+      console.log('Successfully reloaded application (/) commands.');
+    } catch (error) {
+      throw new Error(`Error registering commands: ${error}`);
+    }
   }
 }
